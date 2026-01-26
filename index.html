@@ -4,9 +4,67 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Expense Tracker</title>
-    <link rel="stylesheet" href="style.cs" />
+    <link rel="stylesheet" href="style.css" />
   </head>
   <body>
+    <div class="container">
+      <h1>💸 Expense Tracker</h1>
+      <div class="totalExpense">
+        <p>Total Expense</p>
+        <h2>₹12,450</h2>
+      </div>
+      <div class="inputs">
+        <input type="text" placeholder="Expense title" />
+        <input type="text" placeholder="Amount" />
+        <select name="" id="">
+          <option value="">Food</option>
+          <option value="">Travel</option>
+          <option value="">Shopping</option>
+          <option value="">Bills</option>
+        </select>
+        <input type="date" />
+        <button class="addExpenseBtn">Add Expense</button>
+      </div>
+    </div>
+
+    <div class="expenseDisplay">
+      <h1>🧾 Expenses</h1>
+      <div class="categoriesDateFilter">
+        <select name="" id="">
+          <option value="">Food</option>
+          <option value="">Travel</option>
+          <option value="">Shopping</option>
+          <option value="">Bills</option>
+        </select>
+
+        <input type="month" id="month" />
+      </div>
+
+      <div class="expenses">
+        <div class="expense">
+          <div class="expenseTypeDate">
+            <h3>Groceries</h3>
+            <p>Food &#8226; 26 Jan</p>
+          </div>
+          <div class="expensePrice">
+            <p>₹220</p>
+            <button class="removeBtn">&#10060;</button>
+          </div>
+        </div>
+
+        <div class="expense">
+          <div class="expenseTypeDate">
+            <h3>Cab Ride</h3>
+            <p>Travel &#8226; 25 Jan</p>
+          </div>
+          <div class="expensePrice">
+            <p>₹220</p>
+            <button class="removeBtn">&#10060;</button>
+          </div>
+        </div>
+      </div>
+    </div>
+
     <script src="script.js"></script>
   </body>
 </html>
