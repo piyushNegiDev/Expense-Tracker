@@ -1,8 +1,8 @@
 let expenses = getFromLocalStorage() || [];
 
 document.addEventListener("DOMContentLoaded", () => {
-  calculateTotalExpense();
-  checkEmptyList();
+  updateUI();
+  saveToLocalStorage();
 });
 
 function getExpense() {
@@ -11,7 +11,7 @@ function getExpense() {
   let expenseCategory = document.getElementById("inputOptions").value;
   let expenseDate = document.getElementById("expenseDate").value;
 
-  if (!expenseTitle || !expenseAmount || !expenseDate) return;
+  if ([expenseTitle, expenseAmount, expenseDate].some((v) => !v)) return;
 
   let expenseObj = {
     id: Date.now(),
@@ -23,12 +23,11 @@ function getExpense() {
   expenses.push(expenseObj);
 
   saveToLocalStorage();
-  calculateTotalExpense();
   clearInputs();
-  checkEmptyList();
+  updateUI();
 }
 
-function renderExpensesList() {
+function renderExpensesList(expenses) {
   document.getElementById("expenses").innerHTML = "";
   let html = "";
 
@@ -41,19 +40,18 @@ function renderExpensesList() {
     )}</p>
         </div>
         <div class="expensePrice">
-          <p>₹${expense.expenseAmount}</p>
+          <p>₹${expense.expenseAmount.toLocaleString("en-IN")}</p>
           <button data-id='${expense.id}' class="removeBtn">&#10060;</button>
         </div>
       </div>`;
   });
 
-  document.getElementById("expenses").innerHTML += html;
+  document.getElementById("expenses").innerHTML = html;
 }
 
 function removeExpenseFromList(id) {
   expenses = expenses.filter((exp) => exp.id !== id);
   saveToLocalStorage();
-  checkEmptyList();
 }
 
 function clearInputs() {
@@ -70,7 +68,7 @@ document.getElementById("expenses").addEventListener("click", (e) => {
   if (e.target.classList.contains("removeBtn")) {
     const id = Number(e.target.dataset.id);
     removeExpenseFromList(id);
-    calculateTotalExpense();
+    updateUI();
   }
 });
 
@@ -80,7 +78,9 @@ function calculateTotalExpense() {
     0
   );
 
-  document.getElementById("totalExpense").innerText = `₹${totalExpense}`;
+  document.getElementById(
+    "totalExpense"
+  ).innerText = `₹${totalExpense.toLocaleString("en-IN")}`;
 }
 
 function saveToLocalStorage() {
@@ -88,7 +88,11 @@ function saveToLocalStorage() {
 }
 
 function getFromLocalStorage() {
-  return JSON.parse(localStorage.getItem("expenses"));
+  try {
+    return JSON.parse(localStorage.getItem("expenses")) || [];
+  } catch {
+    return [];
+  }
 }
 
 function checkEmptyList() {
@@ -96,13 +100,14 @@ function checkEmptyList() {
     document.querySelector(
       "#expenses"
     ).innerHTML = `<p class="defaultMsg">Expenses Will Be Seen Here</p>`;
-  } else {
-    renderExpensesList();
+    return;
   }
+  renderFilterList();
 }
 
 function convertMonthArray(dateValue) {
-  let months = [
+  const date = new Date(dateValue);
+  const months = [
     "Jan",
     "Feb",
     "Mar",
@@ -116,7 +121,29 @@ function convertMonthArray(dateValue) {
     "Nov",
     "Dec",
   ];
-  let dateParts = dateValue.split("-");
-  let monthIndex = parseInt(dateParts[1]) - 1;
-  return `${dateParts[2]} ${months[monthIndex]}`;
+
+  return `${date.getDate()} ${months[date.getMonth()]}`;
+}
+
+document.getElementById("filterOptions").addEventListener("change", () => {
+  renderFilterList();
+});
+
+function getFilteredExpenses() {
+  const selectedValue = document.getElementById("filterOptions").value;
+
+  if (selectedValue === "allCategories") return expenses;
+
+  return expenses.filter(
+    (expense) => expense.expenseCategory === selectedValue
+  );
+}
+
+function renderFilterList() {
+  renderExpensesList(getFilteredExpenses());
+}
+
+function updateUI() {
+  calculateTotalExpense();
+  checkEmptyList();
 }
