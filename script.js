@@ -1,4 +1,9 @@
-let expenses = [];
+let expenses = getFromLocalStorage() || [];
+
+document.addEventListener("DOMContentLoaded", () => {
+  renderExpensesList();
+  calculateTotalExpense();
+});
 
 document.getElementById("addExpenseBtn").addEventListener("click", () => {
   getExpense();
@@ -19,13 +24,11 @@ function getExpense() {
     expenseCategory,
     expenseDate,
   };
-  console.log("DateId", expenseObj.id);
-
   expenses.push(expenseObj);
 
+  saveToLocalStorage();
+  calculateTotalExpense();
   clearInputs();
-
-  console.log(expenses);
   renderExpensesList();
 }
 
@@ -55,11 +58,13 @@ document.getElementById("expenses").addEventListener("click", (e) => {
   if (e.target.classList.contains("removeBtn")) {
     const id = Number(e.target.dataset.id);
     removeExpenseFromList(id);
+    calculateTotalExpense();
   }
 });
 
 function removeExpenseFromList(id) {
   expenses = expenses.filter((exp) => exp.id !== id);
+  saveToLocalStorage();
   renderExpensesList();
 }
 
@@ -67,6 +72,23 @@ function clearInputs() {
   document.getElementById("expenseTitle").value = "";
   document.getElementById("expenseAmount").value = "";
   document.getElementById("expenseDate").value = "";
+}
+
+function calculateTotalExpense() {
+  let totalExpense = expenses.reduce(
+    (acc, expense) => acc + expense.expenseAmount,
+    0
+  );
+
+  document.getElementById("totalExpense").innerText = `₹${totalExpense}`;
+}
+
+function saveToLocalStorage() {
+  localStorage.setItem("expenses", JSON.stringify(expenses));
+}
+
+function getFromLocalStorage() {
+  return JSON.parse(localStorage.getItem("expenses"));
 }
 
 function convertMonthArray(dateValue) {

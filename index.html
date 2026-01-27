@@ -11,18 +11,18 @@
       <h1>💸 Expense Tracker</h1>
       <div class="totalExpense">
         <p>Total Expense</p>
-        <h2>₹0</h2>
+        <h2 id="totalExpense">₹0</h2>
       </div>
       <div class="inputs">
         <input type="text" placeholder="Expense title" id="expenseTitle" />
-        <input type="number" placeholder="Amount" id="expenseAmount"/>
+        <input type="number" placeholder="Amount" id="expenseAmount" />
         <select name="" id="inputOptions">
           <option value="food">Food</option>
           <option value="travel">Travel</option>
           <option value="shopping">Shopping</option>
           <option value="bills">Bills</option>
         </select>
-        <input type="date" id="expenseDate"/>
+        <input type="date" id="expenseDate" />
         <button id="addExpenseBtn" class="addExpenseBtn">Add Expense</button>
       </div>
     </div>
@@ -42,27 +42,7 @@
       </div>
 
       <div id="expenses" class="expenses">
-        <div class="expense">
-          <div class="expenseTypeDate">
-            <h3>Groceries</h3>
-            <p>Food &#8226; 26 Jan</p>
-          </div>
-          <div class="expensePrice">
-            <p>₹220</p>
-            <button class="removeBtn">&#10060;</button>
-          </div>
-        </div>
-
-        <div class="expense">
-          <div class="expenseTypeDate">
-            <h3>Cab Ride</h3>
-            <p>Travel &#8226; 25 Jan</p>
-          </div>
-          <div class="expensePrice">
-            <p>₹220</p>
-            <button class="removeBtn">&#10060;</button>
-          </div>
-        </div>
+        <p class="defaultMsg">Expenses Will Be Seen Here</p>
       </div>
     </div>
 
