@@ -11,36 +11,37 @@
       <h1>💸 Expense Tracker</h1>
       <div class="totalExpense">
         <p>Total Expense</p>
-        <h2>₹12,450</h2>
+        <h2>₹0</h2>
       </div>
       <div class="inputs">
-        <input type="text" placeholder="Expense title" />
-        <input type="text" placeholder="Amount" />
-        <select name="" id="">
-          <option value="">Food</option>
-          <option value="">Travel</option>
-          <option value="">Shopping</option>
-          <option value="">Bills</option>
+        <input type="text" placeholder="Expense title" id="expenseTitle" />
+        <input type="number" placeholder="Amount" id="expenseAmount"/>
+        <select name="" id="inputOptions">
+          <option value="food">Food</option>
+          <option value="travel">Travel</option>
+          <option value="shopping">Shopping</option>
+          <option value="bills">Bills</option>
         </select>
-        <input type="date" />
-        <button class="addExpenseBtn">Add Expense</button>
+        <input type="date" id="expenseDate"/>
+        <button id="addExpenseBtn" class="addExpenseBtn">Add Expense</button>
       </div>
     </div>
 
     <div class="expenseDisplay">
       <h1>🧾 Expenses</h1>
       <div class="categoriesDateFilter">
-        <select name="" id="">
-          <option value="">Food</option>
-          <option value="">Travel</option>
-          <option value="">Shopping</option>
-          <option value="">Bills</option>
+        <select name="" id="filterOptions">
+          <option value="allCategories">All Categories</option>
+          <option value="food">Food</option>
+          <option value="travel">Travel</option>
+          <option value="shopping">Shopping</option>
+          <option value="bills">Bills</option>
         </select>
 
         <input type="month" id="month" />
       </div>
 
-      <div class="expenses">
+      <div id="expenses" class="expenses">
         <div class="expense">
           <div class="expenseTypeDate">
             <h3>Groceries</h3>
