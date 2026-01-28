@@ -2,7 +2,6 @@ let expenses = getFromLocalStorage() || [];
 
 document.addEventListener("DOMContentLoaded", () => {
   updateUI();
-  saveToLocalStorage();
 });
 
 function getExpense() {
@@ -27,11 +26,11 @@ function getExpense() {
   updateUI();
 }
 
-function renderExpensesList(expenses) {
+function renderExpensesList(list) {
   document.getElementById("expenses").innerHTML = "";
   let html = "";
 
-  expenses.forEach((expense) => {
+  list.forEach((expense) => {
     html += `<div class="expense">
         <div class="expenseTypeDate">
           <h3>${expense.expenseTitle}</h3>
@@ -72,7 +71,7 @@ document.getElementById("expenses").addEventListener("click", (e) => {
   }
 });
 
-function calculateTotalExpense() {
+function calculateTotalExpense(expenses) {
   let totalExpense = expenses.reduce(
     (acc, expense) => acc + expense.expenseAmount,
     0
@@ -96,13 +95,16 @@ function getFromLocalStorage() {
 }
 
 function checkEmptyList() {
-  if (expenses.length === 0) {
+  const filtered = getFilteredExpenses();
+
+  if (filtered.length === 0) {
     document.querySelector(
       "#expenses"
-    ).innerHTML = `<p class="defaultMsg">Expenses Will Be Seen Here</p>`;
+    ).innerHTML = `<p class="defaultMsg">No expenses found</p>`;
     return;
   }
-  renderFilterList();
+
+  renderExpensesList(filtered);
 }
 
 function convertMonthArray(dateValue) {
@@ -126,7 +128,7 @@ function convertMonthArray(dateValue) {
 }
 
 document.getElementById("filterOptions").addEventListener("change", () => {
-  renderFilterList();
+  updateUI();
 });
 
 function getFilteredExpenses() {
@@ -144,6 +146,6 @@ function renderFilterList() {
 }
 
 function updateUI() {
-  calculateTotalExpense();
+  calculateTotalExpense(getFilteredExpenses());
   checkEmptyList();
 }
