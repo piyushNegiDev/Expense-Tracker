@@ -4,16 +4,16 @@ function renderExpensesList(list) {
 
   list.forEach((expense) => {
     html += `<div class="expense">
-          <div class="expenseTypeDate">
-            <h3>${expense.expenseTitle}</h3>
-            <p>${expense.expenseCategory} &#8226; ${convertMonthArray(
+        <div class="expenseTypeDate">
+        <h3>${expense.expenseTitle}</h3>
+        <p>${expense.expenseCategory} &#8226; ${convertMonthArray(
       expense.expenseDate
     )}</p>
-          </div>
-          <div class="expensePrice">
-            <p>₹${expense.expenseAmount.toLocaleString("en-IN")}</p>
-            <button data-id='${expense.id}' class="removeBtn">&#10060;</button>
-          </div>
+        </div>
+        <div class="expensePrice">
+        <p>₹${expense.expenseAmount.toLocaleString("en-IN")}</p>
+        <button data-id='${expense.id}' class="removeBtn">&#10060;</button>
+        </div>
         </div>`;
   });
 

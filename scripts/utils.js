@@ -12,12 +12,26 @@ function getFromLocalStorage() {
 
 function getFilteredExpenses() {
   const selectedValue = document.getElementById("filterOptions").value;
+  const monthValue = document.getElementById("month").value;
 
-  if (selectedValue === "allCategories") return expenses;
+  if (selectedValue === "allCategories" && monthValue === "") {
+    return expenses;
+  }
+  if (selectedValue === "allCategories" && monthValue !== "") {
+    return expenses.filter((expense) => {
+      return monthValue === formateDate(expense);
+    });
+  }
+  return expenses
+    .filter((expense) => expense.expenseCategory === selectedValue)
+    .filter((expense) => {
+      return monthValue === formateDate(expense);
+    });
+}
 
-  return expenses.filter(
-    (expense) => expense.expenseCategory === selectedValue
-  );
+function formateDate(expense) {
+  let [year, month] = expense.expenseDate.split("-");
+  return `${year}-${month}`;
 }
 
 function convertMonthArray(dateValue) {

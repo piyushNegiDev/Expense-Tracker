@@ -17,3 +17,7 @@ document.getElementById("expenses").addEventListener("click", (e) => {
 document.getElementById("filterOptions").addEventListener("change", () => {
   updateUI();
 });
+
+document.getElementById("month").addEventListener("change", () => {
+  updateUI();
+});
