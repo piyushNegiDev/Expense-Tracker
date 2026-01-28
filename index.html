@@ -23,11 +23,13 @@
           <option value="Bills">Bills</option>
         </select>
         <input type="date" id="expenseDate" />
-        <button id="addExpenseBtn" class="addExpenseBtn">Add Expense</button>
+        <a href="#expenseDisplay">
+          <button id="addExpenseBtn" class="addExpenseBtn">Add Expense</button>
+        </a>
       </div>
     </div>
 
-    <div class="expenseDisplay">
+    <div id="expenseDisplay" class="expenseDisplay">
       <h1>🧾 Expenses</h1>
       <div class="categoriesDateFilter">
         <select name="" id="filterOptions">

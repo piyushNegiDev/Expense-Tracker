@@ -27,6 +27,8 @@ body {
   padding: 2rem;
 
   background-color: #fff;
+
+  box-shadow: 0px 0px 5px lightgray;
 }
 
 h1 {
@@ -68,12 +70,11 @@ h1 {
 .addExpenseBtn {
   background-color: #667eea;
   color: white;
+  width: 100%;
 }
 
 .expenseDisplay {
   align-items: normal;
-  width: 30vw;
-  min-width: 350px;
 }
 
 .categoriesDateFilter {
@@ -139,4 +140,13 @@ h1 {
   border-radius: 1rem;
 
   text-align: center;
+}
+
+@media screen and (max-width: 782px), screen and (max-height: 500px) {
+  body {
+    flex-direction: column;
+    height: auto;
+    gap: 2rem;
+    padding: 2rem;
+  }
 }
