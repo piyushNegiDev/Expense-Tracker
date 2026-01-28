@@ -11,26 +11,23 @@ function getFromLocalStorage() {
 }
 
 function getFilteredExpenses() {
-  const selectedValue = document.getElementById("filterOptions").value;
-  const monthValue = document.getElementById("month").value;
+  const selectedCategory = document.getElementById("filterOptions").value;
+  const selectedMonth = document.getElementById("month").value;
 
-  if (selectedValue === "allCategories" && monthValue === "") {
-    return expenses;
-  }
-  if (selectedValue === "allCategories" && monthValue !== "") {
-    return expenses.filter((expense) => {
-      return monthValue === formateDate(expense);
-    });
-  }
-  return expenses
-    .filter((expense) => expense.expenseCategory === selectedValue)
-    .filter((expense) => {
-      return monthValue === formateDate(expense);
-    });
+  return expenses.filter((expense) => {
+    const matchCategory =
+      selectedCategory === "allCategories" ||
+      expense.expenseCategory === selectedCategory;
+
+    const matchMonth =
+      selectedMonth === "" || formatDate(expense.expenseDate) === selectedMonth;
+
+    return matchCategory && matchMonth;
+  });
 }
 
-function formateDate(expense) {
-  let [year, month] = expense.expenseDate.split("-");
+function formatDate(dateValue) {
+  const [year, month] = dateValue.split("-");
   return `${year}-${month}`;
 }
 
